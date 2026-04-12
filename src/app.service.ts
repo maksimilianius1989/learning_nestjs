@@ -6,8 +6,4 @@ export class AppService {
   getHello() {
     return {message: 'Test data!'};
   }
-
-  test() {
-    console.log();
-  }
 }
