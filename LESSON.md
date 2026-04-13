@@ -1,8 +1,7 @@
 Nest.js - лучший бэкэнд фреймворк | Полный курс 2025
 
-00:28
-
-https://www.youtube.com/watch?v=HT6cm4GoSIw
+[YouTube Course](https://www.youtube.com/watch?v=HT6cm4GoSIw) 00:28<br>
+[Github](https://github.com/maksimilianius1989/learning_nestjs)
 
 ```npm install -g @nest/cli```
 
