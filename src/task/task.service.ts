@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
 export class TaskService {
@@ -22,10 +23,23 @@ export class TaskService {
     findById(id: Number) {
         const task = this.tasks.find(task => task.id === id);
 
-        if(!task) {
+        if (!task) {
             throw new NotFoundException('Taks is not exist!');
         }
 
         return task;
     }
+
+
+    create(dto: CreateTaskDto) {
+        const newTask = {
+            id: this.tasks.length + 1,
+            title: dto.title,
+            isCompleated: false
+        }
+
+        this.tasks.push(newTask);
+
+        return this.tasks; 
+  }
 }

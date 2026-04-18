@@ -13,7 +13,7 @@ export class AppTestService {
             this.asyncFunction("asyncFunction 2", 100),// 1
             this.asyncFunction("asyncFunction 1", 550),// 4
             this.asyncFunction("asyncFunction 3", 250),// 3
-            this.asyncFunction("asyncFunction 4", 200)// 2
+            this.asyncFunction("asyncFunction 4", 200),// 2
         ]);
 
         return this.result;
