@@ -25,7 +25,7 @@ export class TaskService {
         const task = this.tasks.find(task => task.id === id);
 
         if (!task) {
-            throw new NotFoundException('Taks is not exist!');
+            throw new NotFoundException('Task is not exist!');
         }
 
         return task;
@@ -41,16 +41,32 @@ export class TaskService {
 
         this.tasks.push(newTask);
 
-        return this.tasks; 
-  }
+        return this.tasks;
+    }
 
-update(id: number, dto: UpdateTaskDto) {
-    const {title, isCompleated} = dto;
-    const task = this.findById(id);
+    update(id: number, dto: UpdateTaskDto) {
+        const { title, isCompleated } = dto;
+        const task = this.findById(id);
 
-    task.title = dto.title;
-    task.isCompleated = dto.isCompleated;
+        task.title = dto.title;
+        task.isCompleated = dto.isCompleated;
 
-    return task;            
-  }
+        return task;
+    }
+
+    patchUpdate(id: Number, dto: Partial<UpdateTaskDto>) {
+        const task = this.findById(id);
+
+        Object.assign(task, dto);
+
+        return task;
+    }
+
+    delete(id: Number) {
+        const task = this.findById(id);
+
+        this.tasks = this.tasks.filter(task => task.id !== id);
+
+        return task;
+    }
 }
