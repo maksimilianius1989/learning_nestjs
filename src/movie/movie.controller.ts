@@ -1,48 +1,28 @@
-import { Body, Controller, Get, Post, Query, Headers, Req, Res, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { MovieService } from './movie.service';
-import type { Response, Request } from 'express';
+import { MovieDto } from './dto/movie.dto';
 
-@Controller({
-  path: 'movies'
-})
+@Controller('movies')
 export class MovieController {
+  constructor(private readonly movieSerivce: MovieService) { }
 
   @Get()
-  findAll(@Query() queries: string) {
-    return queries;
+  async findAll() {
+    return this.movieSerivce.findAll();
   }
 
-  @Get(':id/name/:name')
-  findById(@Param('id') id: number, @Param('name') name: string) {
-    return {id, name};
+  @Get(':id')
+  async findById(@Param('id') id: string) {
+    return this.movieSerivce.findById(+id);
   }
 
   @Post()
-  create(@Body() body: {title: string, genre: string}) {
-    return body;
+  async create(@Body() dto: MovieDto) {
+    return this.movieSerivce.create(dto);
   }
 
-  @Get('headers')
-  getHeaders(@Headers() headers: any) {
-    return headers;
+  @Put(':id')
+  async updagte(@Param('id') id: string, @Body() dto: MovieDto) {
+    return this.movieSerivce.update(+id, dto);
   }
-
-  @Get('user-agent')
-  getUserAgent(@Headers('user-agent') userAgent: string) {
-    return {userAgent};
-  }
-
-  @Get('request')
-  getRequest(@Req() request: Request) {
-    return {
-      body: request.body,
-      header: request.headers,
-      method: request.method
-    };
-  }
-
-  @Get('response')
-  getResponse(@Res() response: Response) {
-    return response.status(202).json({message: "hello"});
-  }
-} 
+}
