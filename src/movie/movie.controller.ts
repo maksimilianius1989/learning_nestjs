@@ -13,7 +13,7 @@ export class MovieController {
 
   @Get(':id')
   async findById(@Param('id') id: string) {
-    return this.movieSerivce.findById(+id);
+    return this.movieSerivce.findById(id);
   }
 
   @Post()
@@ -23,11 +23,11 @@ export class MovieController {
 
   @Put(':id')
   async updagte(@Param('id') id: string, @Body() dto: MovieDto) {
-    return this.movieSerivce.update(+id, dto);
+    return this.movieSerivce.update(id, dto);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    return this.movieSerivce.delete(+id);
+    return this.movieSerivce.delete(id);
   }
 }
