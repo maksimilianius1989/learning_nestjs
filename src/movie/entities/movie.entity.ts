@@ -1,6 +1,7 @@
 import { ActorEntity } from "src/actor/entities/actor.entity";
 import { ReviewEntity } from "src/review/entities/review.entity";
-import { Column, CreateDateColumn, Entity, Generated, JoinTable, ManyToMany, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Generated, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { MoviePosterEntity } from "./poster.entity";
 
 export enum Genre {
     ACTION = 'action',
@@ -55,6 +56,24 @@ export class MovieEntity {
     })
     genre!: Genre;
 
+    @Column({
+        name: 'poster_id',
+        type: 'uuid',
+        nullable: true,
+    })
+    posterId!: string;
+
+    @OneToOne(
+        () => MoviePosterEntity,
+        (poster) => poster.movie, 
+        {
+            onDelete: 'CASCADE',
+            nullable: true,
+        }
+    )
+    @JoinColumn({name: 'poster_id'})
+    poster!: MoviePosterEntity | null;
+ 
     @OneToMany(
         () => ReviewEntity,
         (review) => review.movie,
@@ -63,15 +82,15 @@ export class MovieEntity {
 
     @ManyToMany(() => ActorEntity, (actor) => actor.movies)
     @JoinTable({
-         name: 'movie_actors',
-         joinColumn: {
+        name: 'movie_actors',
+        joinColumn: {
             name: 'move_id',
             referencedColumnName: 'id',
-         }, 
-         inverseJoinColumn: {
+        },
+        inverseJoinColumn: {
             name: 'actor_id',
             referencedColumnName: 'id',
-         }
+        }
     })
     actors!: ActorEntity[];
 
