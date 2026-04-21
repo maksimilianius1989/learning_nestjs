@@ -1,4 +1,4 @@
-import { MovieEntity } from "src/movie/entity/movie.entity";
+import { MovieEntity } from "src/movie/entities/movie.entity";
 import { Column, CreateDateColumn, Entity, Generated, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'reviews' })

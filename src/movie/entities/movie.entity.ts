@@ -1,5 +1,6 @@
-import { ReviewEntity } from "src/review/entity/review.entity";
-import { Column, CreateDateColumn, Entity, Generated, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { ActorEntity } from "src/actor/entities/actor.entity";
+import { ReviewEntity } from "src/review/entities/review.entity";
+import { Column, CreateDateColumn, Entity, Generated, JoinTable, ManyToMany, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 export enum Genre {
     ACTION = 'action',
@@ -58,7 +59,21 @@ export class MovieEntity {
         () => ReviewEntity,
         (review) => review.movie,
     )
-    reviews!: ReviewEntity[]
+    reviews!: ReviewEntity[];
+
+    @ManyToMany(() => ActorEntity, (actor) => actor.movies)
+    @JoinTable({
+         name: 'movie_actors',
+         joinColumn: {
+            name: 'move_id',
+            referencedColumnName: 'id',
+         }, 
+         inverseJoinColumn: {
+            name: 'actor_id',
+            referencedColumnName: 'id',
+         }
+    })
+    actors!: ActorEntity[];
 
     @CreateDateColumn({
         name: 'created_at',
