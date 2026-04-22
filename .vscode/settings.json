@@ -11,5 +11,6 @@
             "username": "root",
             "password": "123456"
         }
-    ]
+    ],
+    "prisma.pinToPrisma6": false
 }

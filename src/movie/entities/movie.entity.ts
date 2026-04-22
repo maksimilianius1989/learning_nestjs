@@ -1,6 +1,5 @@
 import { ActorEntity } from "src/actor/entities/actor.entity";
-import { ReviewEntity } from "src/review/entities/review.entity";
-import { Column, CreateDateColumn, Entity, Generated, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { MoviePosterEntity } from "./poster.entity";
 
 export enum Genre {
@@ -74,11 +73,11 @@ export class MovieEntity {
     @JoinColumn({name: 'poster_id'})
     poster!: MoviePosterEntity | null;
  
-    @OneToMany(
-        () => ReviewEntity,
-        (review) => review.movie,
-    )
-    reviews!: ReviewEntity[];
+    // @OneToMany(
+    //     () => ReviewEntity,
+    //     (review) => review.movie,
+    // )
+    // reviews!: ReviewEntity[];
 
     @ManyToMany(() => ActorEntity, (actor) => actor.movies)
     @JoinTable({
