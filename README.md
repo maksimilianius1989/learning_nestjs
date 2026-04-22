@@ -23,3 +23,10 @@ $ yarn run start:prod
 # Create new module
 $ nest g res <module name> --no-spec
 ```
+
+```bash
+# Run Prisma
+$ yarn prisma db push
+# Run Client
+$ yarn prisma studio
+```
