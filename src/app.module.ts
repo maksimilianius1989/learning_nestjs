@@ -11,12 +11,12 @@ import { PrismaModule } from './prisma/prisma.module';
 @Module({ 
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true 
     }),
     PrismaModule,
     MovieModule,
     ReviewModule,
-    ActorModule 
+    ActorModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppTestService],
