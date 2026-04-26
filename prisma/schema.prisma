@@ -7,65 +7,51 @@ datasource db {
 }
 
 model Movie {
-  id String @id @default(uuid())
-
+  id          String       @id @default(uuid())
   title       String
   descripiton String?
-  releaseYear Int     @map("release_year")
-
-  rating      Float   @default(0.0)
-  isAvailable Boolean @default(false) @map("is_available")
-
-  genre Genre @default(DRAMA)
-
-  poster   MoviePoster @relation(fields: [posterId], references: [id], onDelete: Cascade)
-  posterId String      @unique @map("poster_id")
-
-  reviews Review[] @relation("movie_reviews")
-  actors  Actor[]  @relation("movies_actors")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  releaseYear Int          @map("release_year")
+  rating      Float        @default(0.0)
+  isAvailable Boolean      @default(false) @map("is_available")
+  genre       Genre        @default(DRAMA)
+  posterId    String?      @unique @map("poster_id")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  poster      MoviePoster? @relation(fields: [posterId], references: [id], onDelete: Cascade)
+  reviews     Review[]     @relation("movie_reviews")
+  actors      Actor[]      @relation("movies_actors")
 
   @@map("movies")
 }
 
 model MoviePoster {
-  id String @id @default(uuid())
-
-  url String
-
-  movie Movie? @relation
-
+  id        String   @id @default(uuid())
+  url       String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  movie     Movie?
 
   @@map("movie_posters")
 }
 
 model Review {
-  id String @id @default(uuid())
-
-  text   String
-  rating Decimal @default(0.0)
-
-  movie   Movie  @relation("movie_reviews", fields: [movieId], references: [id], onDelete: Cascade)
-  movieId String @map("movie_id")
-
+  id        String   @id @default(uuid())
+  text      String
+  rating    Decimal  @default(0.0)
+  movieId   String   @map("movie_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  movie     Movie    @relation("movie_reviews", fields: [movieId], references: [id], onDelete: Cascade)
 
   @@map("reviews")
 }
 
 model Actor {
-  id String @id @default(uuid())
-
-  name   String
-  movies Movie[] @relation("movies_actors")
-
+  id        String   @id @default(uuid())
+  name      String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  movies    Movie[]  @relation("movies_actors")
 
   @@map("actors")
 }

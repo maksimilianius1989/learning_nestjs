@@ -9,12 +9,12 @@ import { ActorModule } from './actor/actor.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({ 
-  imports: [
+  imports: [ 
     ConfigModule.forRoot({
       isGlobal: true 
     }),
     PrismaModule,
-    MovieModule,
+    MovieModule, 
     ReviewModule,
     ActorModule,
   ],
