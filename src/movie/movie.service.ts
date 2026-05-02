@@ -38,6 +38,7 @@ export class MovieService {
             include: {
                 actors: true,
                 poster: true,
+                reviews: true,
             }
         });
 
