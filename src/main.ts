@@ -6,6 +6,8 @@ import { requestContext } from './common/request-context';
 import { Logger } from './common/middlewares/logger.middleware';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { MovieModule } from './movie/movie.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,8 +21,23 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ResponseInterceptor());
   app.useGlobalFilters(new AllExceptionsFilter());
 
+  const config = new DocumentBuilder()
+    .setTitle('Nest course API ')
+    .setDescription('API documentation for Nest JS course')
+    .setVersion('1.0.0')
+    .setContact('IT ViMax', 'it-vimax.com.ua', 'it.vimax@gmail.com')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config, {
+    include: [MovieModule]
+  });
+
+  SwaggerModule.setup('/docs', app, document, {
+    jsonDocumentUrl: 'swagger.json',
+  });
+
   app.use(Logger);
- 
+
   await app.listen(3000);
 }
 bootstrap();
