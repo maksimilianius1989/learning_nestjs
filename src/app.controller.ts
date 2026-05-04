@@ -1,7 +1,5 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { AuthGuard } from './common/guards/auth.guard';
-import { UserAget } from './common/decorators/user-agent.decorator';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('App')
@@ -19,13 +17,11 @@ export class AppController {
     return `Movie: ${title}`;
   }
 
-  @UseGuards(AuthGuard)
   @Get('@me')
-  getProfile(@UserAget() userAget: string) {
+  getProfile() {
     return {
       name: 'John Doe',
       email: 'test@test.com',
-      userAget,
     };
   }
 }
